@@ -30,3 +30,11 @@ console.log(ans)
 
 const person = ["John", "nihal","dm"]
 console.log(person[1])//nihal
+
+//objects
+
+const user1 ={
+    name : "nihal",
+    gender : "male",
+}
+console.log(user1.name)
