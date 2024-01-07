@@ -1,51 +1,70 @@
-//Input Validation using ZOD library
+//Authenticataion MongoDB
 
 const express = require('express');
-const zod = require('zod'); //Importing the ZOD library
+const jwt = require('jsonwebtoken');
+const jwtpassword = "123456";
+
 const app = express();
 
-const schema = zod.array(zod.number());//Defineing the structure of the input schema
+app.use(express.json());
 
-//Schema for the username and password
-
-const userschema = zod.object({
-    email: zod.string(),
-    password: zod.string(),
-    country : zod.literal("IN").or(zod.literal("US")),
-    kidneys: zod.array(zod.number())
-})
-
-
-
-app.use(express.json())
-
-app.post('/zod', (req, res) => {
-    const reqestfromuser = req.body
-    const username = req.headers.username;
-    const password = req.headers.password;
-    const kindeys = req.body.kidneys;
-    const response = userschema.safeParse(reqestfromuser)
-    
-    if(!response.success){
-        res.status(411).json({message:"Input is invalid"})
+const ALL_USERS = [
+    {
+        username : "nihal@gmail.com",
+        password : "1234",
+        name : "DM Nihal"
+    },
+    {
+        username : "rakshit@gmail.com",
+        password : "1234323",
+        name : "Rakshit MG"
+    },
+    {
+        username : "Malli@gmail.com",
+        password : "123423442",
+        name : "Mallikarjun Wali"
     }
-    else{
-        res.send({response});
+];
+
+function userExist(username,password){
+    let userExist =false;
+    if(ALL_USERS.find(user => user.username === username && user.password === password)){
+        userExist = true;
+    }
+
+    return userExist;
+
+}
+
+app.post("/signin", function(req, res) {
+    const username = req.body.username;
+    const password = req.body.password;
+
+    if(!userExist(username,password)){
+        return res.status(403).json({message:"User does not exist"});
 
     }
-    
-
-    // const nofokidneys = kindeys.length;
-
-    // res.send("you have"+ nofokidneys + "Kidneys")
-})
+     //Can send Both the username and password as to token
+    // var token = jwt.sign({username: username,password:password}, jwtpassword);
+    var token = jwt.sign({username: username}, jwtpassword);
+    return res.json({token});
 
 
-//GLOBAL CATCHES
-//Goes to this middlewar if there is any errors
-app.use(function(err, req, res, next){
-    res.json({"msg":"This is on us Please bere with us"})
+});
+
+app.get("/user", function(req, res) {
+    const token = req.headers.authorization;
+    try{
+        const decode = jwt.verify(token, jwtpassword);
+        const username = decode.username;
+        res.json({
+            users:ALL_USERS
+            .filter(user => user.username != username)
+        })
+    }
+    catch(err){
+        return res.status(403).json({message:"Invalid token"});
+    }
 })
 
 app.listen(3000)
-

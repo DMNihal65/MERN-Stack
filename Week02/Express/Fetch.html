@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function getAnimalData(){
+            // alert("inside a BUtton")
+            const response = fetch("https://fakerapi.it/api/v1/persons")
+            .then(function(response){
+                response.json()
+                // console.log(data)
+                .then(function(finalData){
+                    console.log(finalData);
+                })
+            })
+            // console.log(response.data)
+        }
+
+
+        //Using the async Function (USE THIS NOT THE ABOVE)
+
+            async function getAnimalData2(){
+                const response = await fetch("https://fakerapi.it/api/v1/persons");
+                const finalData = await response.json();
+            const names = finalData.data.map(function(persons){
+                return persons.firstname;
+
+            }
+                
+            )
+            
+            console.log(names)
+            document.getElementById("container").innerHTML = JSON.stringify(names);
+
+            console.log(finalData)
+
+        }
+
+    
+    </script>
+    <div id="container">
+
+    </div>
+    <button onclick="getAnimalData2()">Get Data</button>
+    
+    
+</body>
+
+</html>
