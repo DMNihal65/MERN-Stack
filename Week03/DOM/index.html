@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Styles.css">
+    <link rel="stylesheet" href="Script.js">
+    <title>Document</title>
+    <script>
+        
+
+        function populate() {
+            const element = document.getElementById("finalSum");
+            console.log(element)
+            const elm1 = document.getElementById("first").value;
+            const elm2 = document.getElementById("second").value;
+            const sum = parseInt(elm1) + parseInt(elm2);
+            element.innerHTML = sum;
+        }
+        
+    </script>
+</head>
+<body>
+    <h1>Assignment</h1>
+    <input class="input" id="first" type="text" placeholder="first number">
+    <br><br>
+    <input class="input" id="second" type="text" placeholder="Second number">
+    <br><br>
+    <button onclick="populate()">Submit</button>
+
+    <div id="finalSum"></div>
+    
+</body>
+</html>
