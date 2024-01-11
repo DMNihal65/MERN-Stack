@@ -7,28 +7,75 @@
     <link rel="stylesheet" href="Script.js">
     <title>Document</title>
     <script>
-        
+        //Trotlling and Debouncing
+        //Here Sending the request to backend every time when user enters anything is not a greate prctivce
+        //so Debouncing has to be done.
+        //evrytime when user enters call  debouncepopulate() which has a timeout for 1sec and call the populate function to send requst to backend
+        //if user enters again in 1 sec then it will cancel the previous time and start the timer again and call function.
+        let timeout;
+        function debouncepopulate(){
+            clearTimeout(timeout);
+            timeout = setTimeout(function(){
+                populate();
+            },1000)
+        }
 
         function populate() {
             const element = document.getElementById("finalSum");
             console.log(element)
             const elm1 = document.getElementById("first").value;
             const elm2 = document.getElementById("second").value;
-            const sum = parseInt(elm1) + parseInt(elm2);
-            element.innerHTML = sum;
+             // const sum = parseInt(elm1) + parseInt(elm2);
+
+
+            //Get the value from the backend server
+            //Backend is there in the script.js file
+            //fetch Funtion
+            fetch(`http://localhost:3000/sum?a=${elm1}&b=${elm2}`)
+                .then(function(response){
+                    response.text()
+                    .then(function(data){
+                        element.innerHTML = data;
+                    })
+                })
+
+            // MOre simple way it to ASYNC FUNCTION
+
+            async function populate2() {
+            const element = document.getElementById("finalSum");
+            console.log(element)
+            const elm1 = document.getElementById("first").value;
+            const elm2 = document.getElementById("second").value;
+            const response = await fetch(`http://localhost:3000/sum?a=${elm1}&b=${elm2}`);
+            const ans = await response.text();
+            element.innerHTML = ans;
+            }
+
+            // console.log(sumfetch)
+            // element.innerHTML = sumfetch;
         }
         
     </script>
 </head>
 <body>
     <h1>Assignment</h1>
-    <input class="input" id="first" type="text" placeholder="first number">
+    
+    <!-- with Debouning -->
+    <!-- this will send request to backend when user enter anything in the input -->
+    <input class="input" oninput="debouncepopulate()" id="first" type="text" placeholder="first number">
     <br><br>
-    <input class="input" id="second" type="text" placeholder="Second number">
+    <input class="input" oninput="debouncepopulate()" id="second" type="text" placeholder="Second number">
     <br><br>
-    <button onclick="populate()">Submit</button>
+    <!-- Without debounding -->
+    <!-- <button onclick="populate()">Submit fetch</button>
+    <button onclick="populate()">Submit Await</button> -->
+
+    <button oninput="populate()">Submit fetch</button>
+    <button oninput="populate()">Submit Await</button>
 
     <div id="finalSum"></div>
     
-</body>
+</body> 
 </html>
+
+

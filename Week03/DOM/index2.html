@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intrest</title>
+    <script>
+        async function rateofintrest(){
+        const inital = document.getElementById("inital");
+        const intrestAmount = document.getElementById("intrestAmount");
+        const principle = document.getElementById("principle").value;
+        const rate = document.getElementById("rate").value;
+        const year = document.getElementById("year").value;
+        console.log(principle)
+        console.log(rate)
+        console.log(year)
+
+        const intrestAmountres = await fetch(`http://localhost:3000/intrest?rate=${rate}&years=${year}&principle=${principle}`)
+        const response = await intrestAmountres.text();
+
+        //update
+        inital.innerHTML = principle;
+        intrestAmount.innerHTML = response;
+
+        
+        }
+        
+    </script>
+</head>
+<body>
+    <h1>Calculate the Intrest</h1>
+    <input id="principle" type="text" placeholder="Enter the Principle Amount">
+    <input id="rate" type="text" placeholder="Enter the Rate of Intrest">
+    <input id="year" type="text" placeholder="Enter the Years">
+
+    <button onclick="rateofintrest()">Submit</button>
+    
+    <div>
+        <p>Inital Amount : </p>
+        <h2 id="inital"></h2>
+        <p>Final Amount : </p>
+        <h1 id="intrestAmount"></h1>
+    </div>
+    
+</body>
+</html>
