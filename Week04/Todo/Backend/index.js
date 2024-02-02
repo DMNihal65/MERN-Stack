@@ -1,6 +1,8 @@
 //Express boilerplate code
 
 const express = require('express');
+const cors = require('cors');
+
 
 
 const app = express();
@@ -8,6 +10,8 @@ const app = express();
 //importing the zod schema written in the types.js
 const { createTodo, updateTodo } = require('./types');
 const { todo } = require('./db');
+
+app.use(cors())
 
 
 
@@ -67,7 +71,7 @@ app.put('/completed', async function(req,res){
     } 
 
     //uniquly identified by _id
-    await todo.update({
+    await todo.updateOne({
         _id:req.body.id,
     },{
         completed: true
