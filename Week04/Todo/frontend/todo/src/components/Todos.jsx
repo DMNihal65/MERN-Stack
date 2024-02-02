@@ -1,32 +1,59 @@
-// todo is the array that is appased as the ptops
+// todo is the array that is passed as the props
 import axios from 'axios';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
-export function Todos({todos}){
-    async function changeCompleted(todo){
-       const mark   = await axios.put(`http://localhost:3000/completed`, {id : todo})
-       window.location.reload();
-    }
+import { useToast } from "@/components/ui/use-toast"
 
-    return <div>
-        {
-            todos.map(function(todo){
-            return (
-            <div key={todo._id}>
-            <h1>{todo.title}</h1>
-            <h2>{todo.description}</h2>
-            <button onClick={() => changeCompleted(todo._id)}>
-                {todo.completed ? "Completed" : "Mark as Completed"}
-            </button>
-            </div>
-            )
-            
+import { Textarea } from "@/components/ui/textarea"
+
+
+import { Button } from "@/components/ui/button";
+
+export function Todos({ todos }) {
+    const { toast } = useToast()
+
+  async function changeCompleted(todo) {
+    const mark = await axios.put(`http://localhost:3000/completed`, { id: todo });
+    toast({
+        description: "Your message has been sent.",
+      })
+    window.location.reload();
+  }
+
+  return (
+    <div className="flex flex-wrap justify-center">
+      {todos.map(function (todo) {
+        return (
+          <div key={todo._id} className="m-2">
+            <Card className="w-64">
+              <CardHeader>
+                <CardTitle>
+                  <h1>{todo.title}</h1>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+              
+                  <Textarea  disabled >
+                    {todo.description}
+                  </Textarea>
                 
-            
-        })
-        }
+              </CardContent>
+              <CardFooter>
+                <Button onClick={() =>  changeCompleted(todo._id)}>
+                  {todo.completed ? "Completed" : "Mark as Completed"}
+                </Button>
+              </CardFooter>
+            </Card>
+          </div>
+        );
+      })}
     </div>
-    
-        
-       
-    
+  );
 }

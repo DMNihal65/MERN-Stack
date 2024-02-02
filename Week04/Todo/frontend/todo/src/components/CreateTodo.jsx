@@ -1,5 +1,18 @@
 import axios from "axios";
 import { useState } from "react"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+  } from "@/components/ui/card"
+  
+
+
 
 export function CreateTodo(){
     const [title,setTitle] = useState("");
@@ -22,11 +35,24 @@ export function CreateTodo(){
     }
 
     return (
-        <div>
-            <input type="text" placeholder="Title" onChange={(e)=>setTitle(e.target.value)} ></input>
-            <input type="text" placeholder="Discription" onChange={(e)=>setDiscription(e.target.value)}></input> <br></br>
+        <div className="mb-4" >
+        <div className=" flex justify-center mt-4  ">
+        <Card className ="w-fit" >
+            <CardHeader>
+                <div className="flex">
 
-            <button onClick={handlesubmit}>Add a Todo</button>
+                    <Input type="text" placeholder="Title" onChange={(e)=>setTitle(e.target.value)} className="w-64" ></Input>
+                    <Input type="text" placeholder="Discription" className="w-64 ml-4" onChange={(e)=>setDiscription(e.target.value)}></Input> <br></br>
+                    <Button size='sm' onClick={handlesubmit} className="text-sm py-2 px-4 ml-4 mt-1 " >Add a Todo</Button>
+                 </div>
+            </CardHeader>
+  
+        </Card>
+        
+        </div>
+        
+
+            
         </div>
     )
 }

@@ -4,6 +4,7 @@ import './App.css'
 import { CreateTodo } from './components/CreateTodo'
 import { Todos } from './components/Todos'
 import axios from 'axios';
+import { Hero } from './components/Hero';
 
 function App() {
 
@@ -33,6 +34,7 @@ function App() {
 
   return (
     <div>
+      <Hero/>
       <CreateTodo/>
       <Todos todos={todos} ></Todos>
     </div>
