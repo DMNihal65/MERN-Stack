@@ -37,7 +37,7 @@ export function CreateTodo(){
     return (
         <div className="mb-4" >
         <div className=" flex justify-center mt-4  ">
-        <Card className ="w-fit" >
+        <Card className ="w-fit shadow-lg" >
             <CardHeader>
                 <div className="flex">
 

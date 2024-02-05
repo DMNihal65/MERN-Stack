@@ -32,7 +32,7 @@ export function Todos({ todos }) {
       {todos.map(function (todo) {
         return (
           <div key={todo._id} className="m-2">
-            <Card className="w-64">
+            <Card className="w-64 shadow-lg">
               <CardHeader>
                 <CardTitle>
                   <h1>{todo.title}</h1>
