@@ -1,14 +1,26 @@
 import React, { useEffect, useState } from 'react'
-
-function Todo() {
-    const [todos,setTodos] = useState({})
+import axios from 'axios'
+function Todo({id}) {
+    const [todos,setTodos] = useState([])
 
     useEffect(function(){
-        fetch("https://jsonplaceholder.typicode.com/todos/1")
-        .then(function(todo){
-            setTodos(todo.json())
-        })
-    },[])
+        axios.get(`https://sum-server.100xdevs.com/todos?id=${id}`)
+            .then(function(res){
+                setTodos(res.data.todos[0])
+                console.log(todos)
+            })
+
+      
+        // fetch(`https://sum-server.100xdevs.com/todos?id=${ids}`)
+        // .then(function(todo){
+        //     setTodos(todo.json())
+        // })
+    },[id])
+
+    41:41
+
+    console.log(todos[0])
+    console.log(todos.title)
 
   return (
     <div>
