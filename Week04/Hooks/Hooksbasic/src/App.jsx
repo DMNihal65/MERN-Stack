@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 
 import './App.css'
 import Todo from './components/Todo'
+import Counter from './components/Counter'
+
 
 function App() {
   const[ids, setIds] = useState()
@@ -11,6 +13,11 @@ function App() {
       setIds(id)
       console.log(ids)
      }
+
+
+     
+    
+    
   
   
 
@@ -21,8 +28,14 @@ function App() {
       <button  onClick={() => handleChange(3)}>3</button>
       <button  onClick={() => handleChange(4)}>4</button>
       <Todo id={ids}></Todo>
+      <div>
+        this is for the useMemo
+        <Counter/>
+      </div>
     </>
   )
 }
+
+
 
 export default App

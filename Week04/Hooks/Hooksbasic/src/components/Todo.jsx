@@ -17,7 +17,7 @@ function Todo({id}) {
         // })
     },[id])
 
-    41:41
+  
 
     console.log(todos[0])
     console.log(todos.title)

@@ -37,6 +37,7 @@ function App() {
       <Hero/>
       <CreateTodo/>
       <Todos todos={todos} ></Todos>
+      
     </div>
   )
 }
